@@ -63,11 +63,21 @@
 
 ## -ALIŞTIRMA-
 
-# 1:Öncelikle sistemdeki tüm container,image ve volumleri görelim bunun için ayrı ayrı listeleme komutları girelim ve ardından temizlik yapmak adına makinenizdeki tüm containerları,imageları ve volumleri temizleyelim.Bunun iki yöntemi var. Bakalim siz kolay olanı mı seçeceksiniz.
-listeleme için ls 
-silmek için rm veya prune
+### 1:Öncelikle sistemdeki tüm container,image ve volumleri görelim bunun için ayrı ayrı listeleme komutları girelim ve ardından temizlik yapmak adına makinenizdeki tüm containerları,imageları ve volumleri temizleyelim.Bunun iki yöntemi var. Bakalim siz kolay olanı mı seçeceksiniz.
+### listeleme için ls 
+### silmek için rm veya prune
 
 ![alıştırma1ls](https://user-images.githubusercontent.com/81867200/181830166-4e6af3c2-69d8-4de3-8029-4ee291392b5b.png)
+
+### 2:centos ,alpine, nginx, httpd:alpine, ozgurozturknet/adanzyedocker,ozgurozturknet/hello-app,ozgurozturknet/app1 isimli imajları çalıştığımız sisteme çekelim.
+pull komutu ile çekebiliyoruz.
+![alıştırmapullimaj](https://user-images.githubusercontent.com/81867200/181831187-b41f55bd-0e68-4cde-a141-a42c69d2f923.png)
+
+### 3:ozgurozturknet/app1 isimli imajdan bir containler oluşturalım.
+![3 soru](https://user-images.githubusercontent.com/81867200/181832523-965024e9-b51c-4adc-8b5f-03ee5eb40d89.png)
+
+
+
 
 
 
