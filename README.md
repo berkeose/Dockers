@@ -21,6 +21,7 @@
 ### Bare-Metal= Sunucu -> işletim sistemi -> app
 ### VM= Sunucu->Sanallaştırma katmanı-> işletim sistemi(10x)-> app1,app2.. // sistem izolasyonu
 ### Container = Sunucu-> işletim sistemi(1x) // uygulama izolasyonu
+![virtual-machine-vs-container](https://user-images.githubusercontent.com/81867200/181816507-f70310bd-fd80-4935-8c22-4c2b5fff75e9.jpg)
 
 ### Notlar:
 ### detach container= arka planda çalışan container // docker container run -d
