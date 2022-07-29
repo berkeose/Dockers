@@ -65,7 +65,8 @@
 
 # 1:Öncelikle sistemdeki tüm container,image ve volumleri görelim bunun için ayrı ayrı listeleme komutları girelim ve ardından temizlik yapmak adına makinenizdeki tüm containerları,imageları ve volumleri temizleyelim.Bunun iki yöntemi var. Bakalim siz kolay olanı mı seçeceksiniz.
 listeleme için ls
-![virtual-machine-vs-container](https://user-images.githubusercontent.com/81867200/181829285-d14fd502-69be-468c-a51c-1dae06debca9.jpg)
+![alıştırma1ls](https://user-images.githubusercontent.com/81867200/181830166-4e6af3c2-69d8-4de3-8029-4ee291392b5b.png)
+
 silmek için rm veya prune
 ![alıştırmaremove](https://user-images.githubusercontent.com/81867200/181829946-573a19e7-f1cc-4646-9ea6-6a5959f75574.png)
 
