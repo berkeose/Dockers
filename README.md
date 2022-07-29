@@ -76,6 +76,18 @@ pull komutu ile çekebiliyoruz.
 ### 3:ozgurozturknet/app1 isimli imajdan bir containler oluşturalım.
 ![3 soru](https://user-images.githubusercontent.com/81867200/181832523-965024e9-b51c-4adc-8b5f-03ee5eb40d89.png)
 
+### 4:httpd:alpine isimli imajdan detached bir container yaratalım.Yarattığımız containerin ismini ve ıd'sini görelim.
+ps komutu ile isim ve ıdsine ulaşabildik.
+![image](https://user-images.githubusercontent.com/81867200/181858975-ccb4d29d-5c34-42c4-81cf-0086d8b5c405.png)
+
+### 5:Yarattığımız bu container'ın loglarına bakalım
+docker logs ID veya İsmim komutu ile loglarını görebiliriz.
+
+### 6:Containeri durduralım, ardından yeniden çalıştıralım ve son olarak container'i sistemden kaldıralım.
+![soru6](https://user-images.githubusercontent.com/81867200/181859570-c174b756-4270-4b07-aaec-e99544bcb963.png)
+
+
+
 
 
 
