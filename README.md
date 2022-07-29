@@ -12,8 +12,21 @@
 ### Docker Rest API: Diğer programlar docker deamon ile rest API aracılığyla konuşur ve ne yapması gerektiğini söyler.
 ### Docker CLI:Docker komut satırı arayüzüdür.
 
-## Image: Bir uygulamanon çalışması için gereken ek kütüphane ve diğer öğelerin paketlenmiş halidir Okunabilir şablon olarak düşünebilirz.
-## Container:Bu şablondan oluşturulmuş çalışan bir kopyadır. 
+## Image:
+### Bir uygulamanon çalışması için gereken ek kütüphane ve diğer öğelerin paketlenmiş halidir Okunabilir şablon olarak düşünebilirz.
+## Container:
+### Bu şablondan oluşturulmuş çalışan bir kopyadır. 
+
+## Container vs Sanal Makine(Vm)
+### Bare-Metal= Sunucu -> işletim sistemi -> app
+### VM= Sunucu->Sanallaştırma katmanı-> işletim sistemi(10x)-> app1,app2.. // sistem izolasyonu
+### Container = Sunucu-> işletim sistemi(1x) // uygulama izolasyonu
+
+### Notlar:
+### detach container= arka planda çalışan container // docker container run -d
+### çalışan container silinmez ilk stop edilmesi gerekir. -f ile zorlayarak silinebilir.
+### çalışan containera docker container exec komutu ile bağlanabiliriz 
+### prune komutu bütün containlerlari kapatır.
     
 
 
