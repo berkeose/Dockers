@@ -32,6 +32,38 @@
 ### prune komutu bütün containlerlari kapatır.
 ### --help ile komutları nasil kullanacağımızı görebiliriz.
 
+## Container Temelleri
+### Her container imajında, o imajdan bir container yarattığımız zaman varsayılan olarak çalışması için ayarlanmış bir uygulama vardır. 
+### Bu uygulama çalıştığı sürece container ayakta kalır uygulama çalışmazsa containerda kapanır.
+### Aynı imajdan 2 farklı container yaratırsak bu containerlar biribirinden bağımsız 2 farklı sistemdir.
+
+### -Containerlar tek bir uygulama çalıştırmak için oluşturulur.
+### -Containerlar tek bir uygulamanın çalışması için gerekli olan  tüm gereksinimlerin önceden hazırlandığı image dediğimiz objeden yaratılırlar.
+### Containerlarla ilgili tüm gereksinimlerin imaj seviyesinde tamamlanmış olması beklenir.
+### -Bir container içinde çalışan ana uygulama durdurulduğu anda container da durdurulur.Container durduğu anda sistemin bir sorun olduğunu anlayarak
+### aynı imajdan aynı ayarlarla yeni bir container yaratarak sistemin çalışmaya devam etmesi sağlanabilir.
+### -Container içerisinde bir uygulamada bir sıkınıtı oluşursa bu container içine bağlanarak çözülmez. Container durdurulup yeni bir container yaratılır
+
+### // container ls -a komutu ile bütün containerlari görebiliriz.
+### // docker containler logs -ID- komutu ile containerin loglarını görebiliriz.
+
+## Union File system:
+### Image sadece okunabilir katmanlardır(R/O layers) imagei çektiğimizde container yazilabilir bir katman atar (R/W Layer)
+### Böylece her containerin kendine ait yazilabilir bir katmanı olur.Tüm değişiklikler orada tutulur.
+
+## Docker Volume(container dışı bilgi saklama)
+### Volume container dışında tutulur,tekrar ulaşılabilir.Bir volume ü birden fazla containera bağlayabiliriz.
+### docker volume create -name- komutu ile volume yaratabiliriz.
+### docker container run -it -v -name-:/uygulama alpine sh (hangi klasöer bağlamak istersek o klasörün adını yazıyoruz)(volume adı:container içindeki klasör)
+### mininot: #cd ile istediğimiz klasörün içine gireibliyoruz, touch komutu ile o klasörde yeni bir dosya yaratabiliryoruz.
+
+## Bind Mounts
+### Host üstündeki bir klassörü container içine map edebiliriz. Buna Bind Mount denilir.
+### C:/katman1/katman2/katman3:/usr/share/nginx/html nginx ile web sunucusunda kendi hostumuzdaki klasörü bind edebiliriz.Volume yerine kendi bilgisayrımızdaki klasörü kullanabiliyoruz.
+
+## -ALIŞTIRMA-
+
+# 1:Öncelikle sistemdeki tüm container,image ve volumleri görelim bunun için ayrı ayrı listeleme komutları girelim ve ardından temizlik yapmak adına makinenizdeki tüm containerları,imageları ve volumleri temizleyelim.Bunun iki yöntemi var. Bakalim siz kolay olanı mı seçeceksiniz.
 
     
 
