@@ -11,6 +11,8 @@
 ### Docker Deamon: Docker engine merkezidir. Containerler, volumeler gibi docker objelerini yaratmanızı ve yönetmenizi sağlar.RestAPI ile dış dünyayla görüşebilir.
 ### Docker Rest API: Diğer programlar docker deamon ile rest API aracılığyla konuşur ve ne yapması gerektiğini söyler.
 ### Docker CLI:Docker komut satırı arayüzüdür.
+![Docker_Engine](https://user-images.githubusercontent.com/81867200/181816950-c038524b-3c00-41c2-9146-e53757f7e32f.png)
+
 
 ## Image:
 ### Bir uygulamanon çalışması için gereken ek kütüphane ve diğer öğelerin paketlenmiş halidir Okunabilir şablon olarak düşünebilirz.
@@ -28,6 +30,9 @@
 ### çalışan container silinmez ilk stop edilmesi gerekir. -f ile zorlayarak silinebilir.
 ### çalışan containera docker container exec komutu ile bağlanabiliriz 
 ### prune komutu bütün containlerlari kapatır.
+### --help ile komutları nasil kullanacağımızı görebiliriz.
+
+
     
 
 
