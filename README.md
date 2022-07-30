@@ -86,6 +86,38 @@ docker logs ID veya İsmim komutu ile loglarını görebiliriz.
 ### 6:Containeri durduralım, ardından yeniden çalıştıralım ve son olarak container'i sistemden kaldıralım.
 ![soru6](https://user-images.githubusercontent.com/81867200/181859570-c174b756-4270-4b07-aaec-e99544bcb963.png)
 
+### 7:ozgurozturknet/adanzyedocker isiml imajdan websunucu adında detached ve "-p 80:80" ile portu publish edebildiği bir container yaratalım.
+![soru7](https://user-images.githubusercontent.com/81867200/181859873-b813adcb-4c42-4d00-b6ac-d8b0039a6645.png)
+
+### 8: websunucu adlı bu container'ın içerisine bağlanalım. usr/local/apache2/htdocs klasörünün altına geçelim ve echo "denemedir" >> index.html komutuyla burdaki dosya denemedir yazısını ekleyelim.Web tarayıcıya geçerek dosyaya ekleme yapabildiğimizi görmek için refresh edelim.Sonrasında containerin içerisinden exit ile çıkalım.
+![soru8](https://user-images.githubusercontent.com/81867200/181860414-93ee0ae3-649a-48d2-8ec8-531d90b39f57.png)
+
+### 9: websunucu isimli containeri çalışırken silelim.
+docker container rm -f 'containerID' komutu ile çalışan containeri silebiliriz.
+
+### 10: alpine isimli imajdan bir container yaratalım. Ama varsayılan olarak çalışması gereken uygulama yerine "ls" uygulmasının çalışmasını sağlayalım.
+ docker container run alpine ls komutu ile istenen işlemi gerçekleştirebiliriz.
+ 
+### 11: alıştırma1 isimli bir volume yaratalım.
+  docker volume create alistirma1 komutu ile istenen volume yaratıldı.
+  
+### 12: alpine isimli imajdan "birinci" isimli bir container yaratalım. Bu container'ı interactive modda yaratalım ve bağlanalım. Aynı zamanda alıştırma1 isimli volume'ü containerın "/test" isimli folderına mount edelim. Bu folder içerisine geçelim ve "touch abc.txt" komutuyla bir dosya yaratalım sonra dosyanın içerisine yazı ekleyelim.
+![soru12](https://user-images.githubusercontent.com/81867200/181861238-7f8daed7-04cb-4630-bb5d-34eb5f5e07f9.png)
+
+### 13:alpine isimli imajdan "ikinci" isimli bir container yaratalım.Bu container'ı interactive modda yaratalım ve bağlanabilelim.Aynı zamanda alıştırma1 isimli volume'ü bu containerin "/test" isimli folder'ına mount edelim.Bu folder içerisinde "ls" komutuyla dosyaları listeleyelim ve abc.txt dosyasının olduğunu görelim "cat" ile dosyanın içeriğini kontrol edelim.
+alistirma1 isimli volume önceden oluşturulduğu için ikinci containerimızdan da ulaşabildik.
+![soru13](https://user-images.githubusercontent.com/81867200/181861605-e7a4db93-7c04-47f9-b9b4-2b9915eabcae.png)
+
+### 14: alpine isimli imajdan "ucuncu" isimli bir container yaratalım.Bu container'ı interactive modda yaratalım ve bağlanabilelim. Aynı zamanda alıştırma1 isimli volume'ü bu containerin "/test" isimli folder'ına mount edelim fakat Read Only olarak mount edelim. Bu folder içerisine geçelim ve "touch abc.txt" komutuyla yeni bir dosya yaratmaya çalışalım ve yaratamadığmızı görelim.
+![soru14](https://user-images.githubusercontent.com/81867200/181861902-f9961da1-fda4-496e-8ecc-add27df280a8.png)
+
+### 15:Bilgisayarımızda bir klasör yaratalım "örneğin c:\deneme ve bu klasör içerisinde index.html adlı bir dosya yaratıp bu dosyanın içerisine bir kaç yazı ekleyelim.
+
+### 16:ozgurozturknet/adanzyedocker isimli imajdan websunucu1 adında detached ve "-p 80:80" ile portu publish edilmiş bir container yaratalım.Bilgisayarımızda yarattığımız klasörü container'ın içerisindeki /usr/local/apache2/htdcos klasörüne mount edelim. Web browser açarak 127.0.0.1'e gidelim ve sitemizi görelim. Daha sonra bilgisayarımızda yarattığımız klasörün içerisindeki index.html dosyasını edit edelim ve yeni yazılar ekelyelim. Web sayfasını refresh ederek bunların geldiğini görelim.
+(burada bir sorun oldu)
+![soru16](https://user-images.githubusercontent.com/81867200/181863582-69321fc2-2764-4689-8050-5afa2123c3bf.png)
+
+
 
 
 
