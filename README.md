@@ -78,7 +78,8 @@ pull komutu ile çekebiliyoruz.
 
 ### 4:httpd:alpine isimli imajdan detached bir container yaratalım.Yarattığımız containerin ismini ve ıd'sini görelim.
 ps komutu ile isim ve ıdsine ulaşabildik.
-![image](https://user-images.githubusercontent.com/81867200/181858975-ccb4d29d-5c34-42c4-81cf-0086d8b5c405.png)
+![4 soru](https://user-images.githubusercontent.com/81867200/182243618-c798af2f-6270-4b2f-a78a-99e7119615fc.png)
+
 
 ### 5:Yarattığımız bu container'ın loglarına bakalım
 docker logs ID veya İsmim komutu ile loglarını görebiliriz.
