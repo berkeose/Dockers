@@ -212,6 +212,67 @@ docker logs mysqldb
 ### 15:Oluşturduğunuz containerları ve alistirma-agi ni silin.
 
 
+## -IMAGE VE REGISTRY-
+
+### Hatırlatma: Docker Image uygulamanın paketlenmiş hailidir.
+### Docker imagelerine verilen isimler-tagler o imajın depolandığı yeri belirtir. docker.io/ozgurozturknet/adanzyedocker:latest
+### imaj çekme işlemi için: docker image pull -ımageıd-
+### Image registry:depolayıp sonradan ulaşabildiğimiz imaj depolarıdır.
+
+
+
+## Docker Image Oluşturma(Docker File)
+### Image oluşturmak için ilk olarak dockerfile oluşturmamiz gerekir.
+### dockerfile: docker imagesinin kodu gibi düşünebiliriz.Kendine özgü kuralları olan bir dille yazılan ve bizlerin docker imageleri oluşturmamizi sağlayan dosyalardır.
+![dockerfile](https://user-images.githubusercontent.com/81867200/182230506-7ccb0ceb-531a-4e56-a107-d968838bbaeb.png)
+
+![dockerfile1](https://user-images.githubusercontent.com/81867200/182232515-da611c2f-facd-4bc9-9e71-a91a443a5d2e.png)
+
+
+
+## -TALİMATLAR-
+
+### FROM:
+FROM imaj:Tag
+### -Oluşturulacak imajın hangi imajdan oluşturulacağını belirten talimattır.Tek mecburi talimattır. Ör: FROM ubuntu:18:04
+
+### RUN:   //shell de komut çalıştırız
+RUN komut
+### -Image oluşturulurken shell'de bir komut çalıştırmak istersek kullanılır.   Ör: RUN apt-get update
+
+### WORKDIR:
+WORKDIR klasör_lokasyonu 
+### -İstediğimiz klasöre geçer ve ordan çalışmaya devam edebiliriz.
+
+### COPY:
+COPY kaynak hedef
+### -Imaj içine dosya veya klasör kopyalamak için kullanırız.
+
+### EXPOSE:
+EXPOSE port
+### -Bu imajdan oluşturulacak containerların hangi portlar üstünden erişebileceğini yani habgi portların yayınlanacğını bu talimatla belirtiriz.
+### ÖR:EXPOSE 80/tcp
+
+### CMD:
+CMD komut
+### -Bu imajdan container yaratıldığı zaman varsayılan olarak çalıştırılmasını istediğimiz komutu belirtiriz.
+### ÖR:CMD java merhaba
+
+### HEALTHCHECK:
+HEALTHCHECK komut
+### -Dockera bir konteynırın hala çalış çalışmadığını kontrol etmesini söyleyebiliriz.Docker ilk proccesse bakar fakat düzgün çalışıyormu diye bakmaz.HELATHCHECK buna bakabilir. Ör:HEALTHCHECK --interval=5m --timeout=3s CMD curl -f http://localhost/|| exit 1
+
+![dockerfilekurmaadımları](https://user-images.githubusercontent.com/81867200/182242805-013ed398-c368-4acd-90b9-a9f0f3d0c2ce.png)
+
+->> #cd c:/deneme adlı klasörün içine girdik ve code . ile vscode a bağlanıp add file ile Dockerfile oluşturduk.
+![dockerfilekurmaadımları1](https://user-images.githubusercontent.com/81867200/182242975-c79cde2c-6dc3-498c-96a1-90821b6ff23d.png)
+
+docker image build -t ozgurozturknet/merhaba .      komutu ile imajımızı oluşturduk.  "."  build context anlamında kullanılır.
+ docker image history// imajın geçmişini gösterir.(katmanlı yapıyı daha iyi anlayabiliriz)
+
+
+
+
 
 
 
