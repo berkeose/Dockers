@@ -117,6 +117,99 @@ alistirma1 isimli volume önceden oluşturulduğu için ikinci containerimızdan
 (burada bir sorun oldu)
 ![soru16](https://user-images.githubusercontent.com/81867200/181863582-69321fc2-2764-4689-8050-5afa2123c3bf.png)
 
+## Docker Network Driver
+### Dış dünya ile konuşmayı, erieşim sağlanmasını, tüm iletişim alt yapısını docker network objeleriyle sağlarız.
+### Bu objeler yaratılırken çeşitli driverlar ile yaratılır. Bu driverlar sayesinde bir networke değişik özellikler atayabiliriz. 5 temel network objesi mevcuttur.
+### Bunlar :
+### Bridge: Varsayılan olan driver.
+### Host: Bu networke bağlı containerda network izolasyonu olmaz. Sanki o host üstünde çalışan bir process gibi hosttan ağ kaynakları kullanılır.
+### MacVlan: Bu driver ileoluşturulan netowrk objeleri sayesinde containerlar fiziksel ağlara kendi mac adreslerine sahip birer fiziksel ağ adaptörüne sahipmişcesine bağlanabilirler.
+### None: Hiçbir şekilde ağ bağlantısnın olmasın istersek kullanılır.
+### Overlay: Ayrı hostlar üstündeki containerların aynı ağda çalışıyormuş gibi çalışmasını istediğimiz durumlarda kullanılır.
+
+## Port Publish
+### Containera dış dünyadan paket ulaşmasını sağlar
+### -p veya --publish ile sistem üzerindeki portu containerdaki port ile eşleştirebiliyoruz.// docker container run -p 8080:80
+### -p host_port:container_port // yani 8080'e istek geldiğinde 80 portuna gönderilicek.
+
+## Kullanıcı Tanımlı Bridge
+### Containerlar arası network izolasyonu sağlamak istersej ayrı bridge networkler yaratarak sağlayabilriz.
+### Varsayılan dışında IP arakujkaru tanımlanabilir.
+### Kullanıcı Tanımlı Bridge network'e bağlı containerlar birbirleriyle isimleri üzerinden haberleşebilir(Dns çözümlemesi sağlanır)
+###   -aynı networke bağlı tüm containerlar birbirlerinin ismini çözebilir.
+
+## Logging-Uygulama Günlükleri
+### log, bilgisayarın gerçekleştirdiği her etkinliğin kayıt altına alınması demektir.
+
+## STDIN-STDOUT-STDERR
+### Linux sistemlerde uygulama çalıştığında bu uygulamara stdin-out-err adlı 3 genel akış aracağlığyla sağlanır.Bizimle iletişim kurmak için 3 temel giriş-çıkış noktasıdır.
+### Not :docker logs -ID-   // bütün stdin-out-err leri listeler,  --details // detaylar için , -t//zaman gsöterir, --untill//o saate kadar olan logları, -- since//o saatten sonraki logları ,--tail kaç satırı görmek istediğimizi, --f//canlı olarak gözleyebilirz.
+
+### docker top -ıd-//container processlerini gösterir.
+### docker stats -ıd-// hostun üstündeki tüm containerlari gösterir ve sürekli refresh eder.
+
+### --memory=limit
+### ---memory-swap=200m -imageID-// memory dolsa bile swapdan kullanabilir.
+### --cpus="coresayısı"//ne kadar cpu kullanılacağı belirlenir
+### --cpuset-cpus="core nuamrası"//hangi coreları kullanacağını seçer.
+
+## Envoirment Variable
+### işletim sistemi genelinde geçerli olan değişken tanımlamaya denir.
+### print env komutu ile sistemdeki envoirment variableları listeleyebilirz.
+### echo $ TERM komutu ile tek envoriment variablei listeleyebilirz.
+### export test="denemedir" // yeni bir envoirment variable girmemizi sağlar.
+### echo $ test komutu ile yeni envoirment variableimizin içeriğini görebiliriz.
+
+### Docker içinde envoirment variable yaratmak için:
+### -- env VARIABLE = değeri veya -e VARIABLE=değeri komutlarını kullanabilirz.
+### --env-file dosya_ismi komutu ile dosyamızı envoirment filein içine alabilirz.
+
+## -ALIŞTIRMA-
+### 1:İlk olarak sistemde bir temizlik yapalım ki alıştırmalarımızla bir çakışma olmasın. Varsa sistemdeki tüm containlerları ve kullanıcı tanımlı networkleri silelim.
+docker ps -a ile containerlara baktık.prune ile temizledik.
+docker network ls ile networklere baktık varsa docker network prune ile temizledik.
+
+###  2:"alistirma-agi" adında ve 10.10.0.0/16 subnetinde, 10.10.10.0/24 ip-aralığından ip dağıtacak ve gateway olarak da 10.10.10.10 tanımlanacak bir kullanıcı tanımlı bridge network yaratalım.(bu sizin yerel ağınızda kullandığınız bir ağ aralığıysa başka bir cidr kullanabiliriniz).Bu ağın özelliklerini inspect komutuyla kontrol edin.
+![alistirma22](https://user-images.githubusercontent.com/81867200/182049201-a9423b3d-a30b-4702-bac6-c99c9c4d71b7.png)
+
+### 3:nginx imajının 1.16 versiyonundan web1 adından detached bir container yaratın.Bu containeri default bridge networküne degil de alistirma networküne bağlı olarak yaratın.Host'un 8080 tcp portuna gelen isteklerin bu containerın 80 portuna gitmesini sağlayın.
+![alistirma23](https://user-images.githubusercontent.com/81867200/182049433-2b1c02b1-5e9a-4fff-9a37-cfd3bd81fd98.png)
+
+### 4:Bu sisteme browser üzerinden erişin ve daha sonra bir kaç kez sayfayı refresh edin.Ardından bu container'ın loglarına erişerek az önceki erişimlerinizin loglarını kontrol edin.
+127.0.0.1:8080 ile eriştik ve docker logs web1 komutu ile loglarına eriştik.
+
+### 5:Container loglarını follow modunda takip ederken browserdan bu web sitesinde olmayan bir url'e gitmeye çalışın.Örneğin xyz.html Bunun ürettiği hatayı canlı olarak loglardan takip edin.
+docker logs -f web1 ile follow modunda takip ettik ve websunucu üstünden 127.0.0.1:8080/xyz.html e gitmeye çalışıp error logunu gördük.
+### 6:ozgurozturknet/adanzyedocker imajından test adından bir container yaratın.-dit ile yaratın sh shellini açın.Bu container default bridgeye bağlı olsun.
+![alistirma26](https://user-images.githubusercontent.com/81867200/182049935-ad7499ef-c0e8-4a23-9643-0e3de65560e6.png)
+
+### 7:Bu container'ı "alistirma-agi" networküne de bağlayın.
+docker network connect alistirma-agi test 
+
+### 8:Container'a attach işlemiyle bağlanın ve container içerisinden web1'i pinglemeye çalışın.Containerı kapamadan çıkın.
+docker attach test daha sonra  # ping web1. Ctrl P Q ile kapatmadan çıktık
+ 
+### 9:Bu containerların çalıştığını kontrol edin ve ardından çalışıyor haldeyken bunları silin.
+docker ps ile çalıştıklarını kontrol ettik. docker container rm -f web1 test ile çalışırken sildik.
+
+### 10:Terminalde eğitim klasörü altındaki kisim4/bolum43 klasörüne geçin.
+
+#### 11:ozgurozturknet/webkayit imajından websrv adında detached bir container yaratın."alistirma agi" networküne bağlı olsun.Maksimum 2 logical cpu kullanacak şekilde kısıtlansın.80 portunu host üstündeki 80 portuyla publish edin. env.list dosyasını bı containera envoirment varaible olarak aktarılmasını sağlayın.
+sistem belirten dosyayı bulamıyor --env-file ile ilgili sorun!
+![alistirma21112](https://user-images.githubusercontent.com/81867200/182051306-08f5be97-b86b-430e-856e-c1af9a169577.png)
+
+
+### 12:ozgurozturknet/webdb imajından mysqldb adında detached bir container yaratın."alistirma-agi" networküne bagli olsun.
+sistem belirtiilen dosyayı bulamıyor
+![alistirma21112](https://user-images.githubusercontent.com/81867200/182051306-08f5be97-b86b-430e-856e-c1af9a169577.png)
+
+
+### 13:mysqldb containerının loglarını kontrol ederek düzgün bir şekilde başaltılabildiğini teyit edin.
+
+### 14:Browserdan websrv containerının yayınlandığı web sitesine bağlanın.Karşınıza çıkan formu doldurup bir tane jpg dosyayı
+
+### 15:Oluşturduğunuz containerları ve alistirma-agi ni silin.
+
 
 
 
