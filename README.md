@@ -205,6 +205,7 @@ sistem belirtiilen dosyayı bulamıyor
 
 
 ### 13:mysqldb containerının loglarını kontrol ederek düzgün bir şekilde başaltılabildiğini teyit edin.
+docker logs mysqldb
 
 ### 14:Browserdan websrv containerının yayınlandığı web sitesine bağlanın.Karşınıza çıkan formu doldurup bir tane jpg dosyayı
 
