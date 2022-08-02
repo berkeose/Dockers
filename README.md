@@ -270,7 +270,52 @@ HEALTHCHECK komut
 
 docker image build -t ozgurozturknet/merhaba .      komutu ile imajımızı oluşturduk.  "."  build context anlamında kullanılır.
  docker image history// imajın geçmişini gösterir.(katmanlı yapıyı daha iyi anlayabiliriz)
+ 
+ ## NOTLAR:
+ ### echo  // girdiğimiz komutu çıktı olarak verir.
+ ### echo $ SHELL> deneme.txt   // çıktıyı hedef dosyaya gönderir.
+ ### ./test.sh &  // scripti arka planda çalıştırır ve konsolda işlem yapmaya izin verir.
+ ### cat abc.txt | grep 3  // soldaki komutun çıktısını sağa girdi olarak gönderir.
+ ### ;  // tek satir içinde birden fazla komut girmeye izin verir.
+ ### && ->   komut1&&komut2 sol olumluysa sağı çalıştır.
+ ### || -> biri çalışırsa diğerini çalıştırma.
+ ## dockerfile farkli bir isim ile yaratılırsa docker image -t -f .\Dockerfile.Centos .    gibi istediğimiz dockerfilein ismini belirtmemiz gerekir.
+ 
+ ## COPY VE ADD FARKI
+ ### ADD,COPY ile aynı işi yapar yani dosya yada klasör kopyalarsınız. ADD dosya kaynağında bir url olmasına da izin verir.Ayrıca ADD ile kaynak olarak bir .tar dosyası belirtilirse bu dosya imaja .tar olarak sıkıştırılmış haliyle değil de açılarak kopyalanır.
+ ### Ör: ADD https://wordpress.org/latest.tar.gz/temp
+ 
+ 
+ ## ENTRYPOINT VE CMD FARKI
+ ## -ENTRYPOINT run time da değiştirilmez.
+ ## -Aynı anda çalıştırılırlarsa ENTRYPOINT çalışır.CMD parametre olarak eklenir.
+ 
+ ## Exec ve Shell Form Farkı
+ ### Exec Form: CMD ["java","uygulama"]
+ ### Shell Form: CMD java uygulama
+ 
+ ### -Shell formunda komut girilirse container yaratıldığı zaman bu komutu shelli çalıştırarak onun içine girer
+ ### -Exec oalrak girilirse komut shelli çalıştırmaz. Process oalrak çalışır.
+ ### -Exec formunda shell processi çalışmadığı için ENVOIRMENT VARIABLE gibi bazı değerlere erişliemez.
+ ### ENTRYPOINT ve CMD birlikte kullanılırsa EXEC FORM kullanılmalıdır.Shell formunda CMD'deki komutlar ENTRYPOINT'e parametre olarak aktarılmaz.
+ 
+ ## Multi-Stage Build
+ ### Imaj yaratma aşamasını kademelere bölmemize ve ilk kademede oluşturduğumuz imaj içerisindeki dosyaları bir sonraki kademede oluşturduğumuz imaja kopyalamaya imkan sağlar.Bu sayede nihai imaj boyutumuzun küçülmesine imkan sağlar.
+ 
+ ![multistagebuild](https://user-images.githubusercontent.com/81867200/182481516-5a68840c-9a11-4ecb-923a-ac1a6a6e1187.png)
 
+## BUİLD ARG
+## Imajın içindeki dockerfile içerisinde değişken kullanmak istersek ARG talimatıyla tanımlayarak daha sonra değişken oalrak kullanabiliriz.Sadece imaj yaratma aşamasında geçerli olur.Imaji build ederken(docker image build -t ex --build-arg DEGISKEN=1.2.3) ile değişkenimizi atayabiliriz.
+
+### Örnek kullanım:
+versionlarımızı olarak iki farklı versinoumuzu ARG VERSION olarak tanımlayarak değiştirebiliriz.
+![buildarg1](https://user-images.githubusercontent.com/81867200/182486024-98a34df1-b0fd-4952-a9bb-56ea4c78450d.png)
+
+![buildarg2](https://user-images.githubusercontent.com/81867200/182486040-174a6e77-b0f0-4706-b9f5-8fa1b266ee7b.png)
+
+![buildarg3](https://user-images.githubusercontent.com/81867200/182486060-4b6f605a-2594-45d9-8caa-6b35ba3c5157.png)
+
+![buildarg4](https://user-images.githubusercontent.com/81867200/182486086-7cb3985e-7cca-4d8c-b1f4-0087075f7a30.png)
 
 
 
