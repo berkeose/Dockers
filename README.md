@@ -311,7 +311,8 @@ docker image build -t ozgurozturknet/merhaba .      komutu ile imajımızı olu�
 versionlarımızı olarak iki farklı versinoumuzu ARG VERSION olarak tanımlayarak değiştirebiliriz.
 ![buildarg1](https://user-images.githubusercontent.com/81867200/182486024-98a34df1-b0fd-4952-a9bb-56ea4c78450d.png)
 
-![buildarg2](https://user-images.githubusercontent.com/81867200/182486040-174a6e77-b0f0-4706-b9f5-8fa1b266ee7b.png)
+![buildarg2 1](https://user-images.githubusercontent.com/81867200/182486312-e2def3d3-30fb-4a7a-b666-6b35ac8d0f8b.png)
+
 
 ![buildarg3](https://user-images.githubusercontent.com/81867200/182486060-4b6f605a-2594-45d9-8caa-6b35ba3c5157.png)
 
