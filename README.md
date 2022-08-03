@@ -308,7 +308,7 @@ docker image build -t ozgurozturknet/merhaba .      komutu ile imajımızı olu�
 ## Imajın içindeki dockerfile içerisinde değişken kullanmak istersek ARG talimatıyla tanımlayarak daha sonra değişken oalrak kullanabiliriz.Sadece imaj yaratma aşamasında geçerli olur.Imaji build ederken(docker image build -t ex --build-arg DEGISKEN=1.2.3) ile değişkenimizi atayabiliriz.
 
 ### Örnek kullanım:
-versionlarımızı olarak iki farklı versinoumuzu ARG VERSION olarak tanımlayarak değiştirebiliriz.
+ iki farklı versinoumuzu ARG VERSION olarak tanımlayarak değiştirebiliriz.
 ![buildarg1](https://user-images.githubusercontent.com/81867200/182486024-98a34df1-b0fd-4952-a9bb-56ea4c78450d.png)
 
 ![buildarg2 1](https://user-images.githubusercontent.com/81867200/182486312-e2def3d3-30fb-4a7a-b666-6b35ac8d0f8b.png)
@@ -320,6 +320,59 @@ versionlarımızı olarak iki farklı versinoumuzu ARG VERSION olarak tanımlaya
 
 
 
+## -ALIŞTIRMA-
+
+### 1:İlk olarak sistemde bir temizlik yapalım ki alıştırmalarımızla çakışma olmasın.Varsa containerları silelim.
+docker container prune
+### 2:Docker logout ve docker login komutlarını kullanarak hesabımızdan logout olup tekrar login olalim.
+docker logout,docker login
+### 3:Önceden oluşturduğumuz ve saklmamız gereken imajlar var ise bunları docker hub'a gönderin ve ardından tüm imajları silin.
+![alistirma3 3](https://user-images.githubusercontent.com/81867200/182502021-443a2426-c0f7-47b7-bcc2-1fed62401a02.png)
+
+### 4:Docker hub'da kendi hesabınıza ait "alistirma" adıyla public bir repository yaratın.
+
+### 5:Centos imajının latest ve 7, ubuntu imajının latest, 18.04 ve 20.04, alpine imajının latest, nginx imajının latest ve alpine tagli imajlarını sisteme çekin.
+
+### 6:ubuntu:18.04 imajına dockerhubkullaniciadiniz/alistirma:ubuntu olarak tag ekleyin ve ardından bu yeni imaji docker hub'a gönderin.Alistirma repositorynizden imajı check edin.
+
+### 7:Bu alistirma.txt dostasının olduğu klasörde bir Dockerfile oluşturun:
+### -Base imaj olarak nginx
+### -İmaja LABEL="kendi adınız ve erişim bilgileriniz" şeklinde label ekleyin.
+### -KULLANICI adında bir ENVOIRMENT VARIABLE tanımlayın ve değer olarak adınızı atayın
+### -RENK adından bir build ARG tanımlayın
+### -Sistemi update edin ve ardından curl,htop ve wget uygulamarını kurun
+### -/gecici klasörüne geçin ve https://wordpress.org/latest.tar.gz dosyasını buraya ekleyin
+### -/usr/share/nginx/html klasörüne geçin ve html/${RENK} klasörünün içeriğini buraya kopyalayın
+### -Healthcheck talimati girelim .curl ile localhost'u kontrol etsin.Başlangıç periodu 5 saniye,deneme aralığı 30s ve zaman aşım süresi de 30 saniye olsun.Deneme sayısı 3 olsun
+### -Bu imajdan bir container yaratıldığı zaman ./script.sh dosyasının çalışmasını sağlayın talimatı exec formunda girin.
+
+### 8:Bu dockerfile dosyasından 2 imaj yaratın.Birinci imajda build ARG olarak RENK:kirimizi ikinci imajda da build ARG olarak RENK:sari kullanın.Kırmızı olan imajın tagi dockerhubkullaniciadiniz/alistirma:kirmizi 
+### sari olan imajın tagi dockerhubkullaniciadiniz/alistirma:sari olsun
+
+### 9:dockerhub/kullaniciadiniz/alistirma:kirmizi imajını kullanarak bir container yaratın.Detach olsun makinenin 80 portuna gelen istekler bu containerın 80 portuna gitsin.Container adi kirmizi olsun.Browser'dan http://127.0.0.1 sayfasına gidip check edin.
+
+### 10:dockerhub/kullaniciadiniz/alistirma:sari imajını kullanarak bir container yaratın.Detach olsun makinenin 8080 portuna gelen istekler bu containerın 80 portuna gitsin. KULLANICI envoirment variable değerini "Deneme" olarak atayın.Container adı sarı olsun.Browser'dan http://127.0.0.1:8080 sayfasına gidip check edin.
+
+### 11:Bu containerları silelim.
+
+### 12:Bu alistirma.txt dosyasının olduğu klasörde Dockerfile.multi isimli bir Dockerfile oluşturun:
+### -Bu multi-stage build alistirmasi olacak.
+### -Birinci stage'i mcr.microsoft.com/java/jdk:8-zulu-alpine imajından oluşturun ve stage adı birinci olsun
+### -/usr/src/uygulama klasörüne geçin ve source klasörünün içeriğini buraya kopyalayalin
+### -"javac uygulama.java" komutunu çalıştırarak uygulamanızı derleyin.
+### - mcr.microsoft.com/java/jre:8-zulu-alpine imajından ikinci aşamayı başlatın
+### -/uygulama klasörüne geçin ve birinci aşamadaki imajın /usr/src/uygulama klasörünün içeriğini buraya kopyalayın
+### -Bu imajdan container yaratıldığı zaman "java uygulama" komutnu çalıştırması için talimat girin
+
+### 13: Bu Dockerfile.multi dosyasından dockerhub/kullaniciadiniz/alistirma:java tagli bir imaj yaratın
+
+### 14:Bu imajdan bir container yaratın ve java uygulamanızın çıkardığı mesajı görün
+
+### 15:dockerhub/kullaniciadiniz/alistirma:kirmizi,dockerhub/kullaniciadiniz/alistirma:sari,dockerhub/kullaniciadiniz/alistirma:java imajlarını docker hub'a yollayın.
+
+### 16:Docker hubdaki registry isiml imajdan lokal bir Docker Registry çalıştırın.
+
+### 17::dockerhub/kullaniciadiniz/alistirma:kirmizi,dockerhub/kullaniciadiniz/alistirma:sari,dockerhub/kullaniciadiniz/alistirma:java imajlarını yeniden tagleyerek bu lokal registry'e gönderin ve ardından bu registry'i web arayüzünden kontrol edin.
 
 
 
