@@ -328,15 +328,20 @@ docker container prune
 docker logout,docker login
 ### 3:Önceden oluşturduğumuz ve saklmamız gereken imajlar var ise bunları docker hub'a gönderin ve ardından tüm imajları silin.
 ![alistirma3 3](https://user-images.githubusercontent.com/81867200/182502021-443a2426-c0f7-47b7-bcc2-1fed62401a02.png)
+docker image prune
 
 ### 4:Docker hub'da kendi hesabınıza ait "alistirma" adıyla public bir repository yaratın.
 
 ### 5:Centos imajının latest ve 7, ubuntu imajının latest, 18.04 ve 20.04, alpine imajının latest, nginx imajının latest ve alpine tagli imajlarını sisteme çekin.
-
+docker pull centos:latest , docker pull centos:7, docker pull ubuntu:latest , docker pull ubuntu:18.04, docker pull ubuntu:20.04, docker pull alpine:latest,docker pull nginx:latest,docker pull nginx:alpine 
 ### 6:ubuntu:18.04 imajına dockerhubkullaniciadiniz/alistirma:ubuntu olarak tag ekleyin ve ardından bu yeni imaji docker hub'a gönderin.Alistirma repositorynizden imajı check edin.
+docker image tag ubuntu:18.04 berkeose/alistirma:ubuntu
+docker image push berkeose/alistirma:ubuntu
 
 ### 7:Bu alistirma.txt dostasının olduğu klasörde bir Dockerfile oluşturun:
 ### -Base imaj olarak nginx
+![alistirma3 7 1 1](https://user-images.githubusercontent.com/81867200/182503302-23952905-cc00-45c7-b830-d3684ed4b14b.png)
+
 ### -İmaja LABEL="kendi adınız ve erişim bilgileriniz" şeklinde label ekleyin.
 ### -KULLANICI adında bir ENVOIRMENT VARIABLE tanımlayın ve değer olarak adınızı atayın
 ### -RENK adından bir build ARG tanımlayın
@@ -345,15 +350,20 @@ docker logout,docker login
 ### -/usr/share/nginx/html klasörüne geçin ve html/${RENK} klasörünün içeriğini buraya kopyalayın
 ### -Healthcheck talimati girelim .curl ile localhost'u kontrol etsin.Başlangıç periodu 5 saniye,deneme aralığı 30s ve zaman aşım süresi de 30 saniye olsun.Deneme sayısı 3 olsun
 ### -Bu imajdan bir container yaratıldığı zaman ./script.sh dosyasının çalışmasını sağlayın talimatı exec formunda girin.
+![alistirma3 7a](https://user-images.githubusercontent.com/81867200/182504376-578d15df-45c6-4e10-8694-913b4ced1b5b.png)
+
 
 ### 8:Bu dockerfile dosyasından 2 imaj yaratın.Birinci imajda build ARG olarak RENK:kirimizi ikinci imajda da build ARG olarak RENK:sari kullanın.Kırmızı olan imajın tagi dockerhubkullaniciadiniz/alistirma:kirmizi 
+docker image build -t berkeose/alistirma:sari --build-arg RENK=sari .
 ### sari olan imajın tagi dockerhubkullaniciadiniz/alistirma:sari olsun
 
 ### 9:dockerhub/kullaniciadiniz/alistirma:kirmizi imajını kullanarak bir container yaratın.Detach olsun makinenin 80 portuna gelen istekler bu containerın 80 portuna gitsin.Container adi kirmizi olsun.Browser'dan http://127.0.0.1 sayfasına gidip check edin.
+ docker container run -d -p 80:80 --name kirmizi berkeose/alistirma:kirmizi
 
 ### 10:dockerhub/kullaniciadiniz/alistirma:sari imajını kullanarak bir container yaratın.Detach olsun makinenin 8080 portuna gelen istekler bu containerın 80 portuna gitsin. KULLANICI envoirment variable değerini "Deneme" olarak atayın.Container adı sarı olsun.Browser'dan http://127.0.0.1:8080 sayfasına gidip check edin.
-
+docker container run -d -p 8080:80 --name sari --env KULLANICI="deneme" berkeose/alistirma:sari 
 ### 11:Bu containerları silelim.
+docker container rm -f kirmizi sari
 
 ### 12:Bu alistirma.txt dosyasının olduğu klasörde Dockerfile.multi isimli bir Dockerfile oluşturun:
 ### -Bu multi-stage build alistirmasi olacak.
@@ -363,17 +373,20 @@ docker logout,docker login
 ### - mcr.microsoft.com/java/jre:8-zulu-alpine imajından ikinci aşamayı başlatın
 ### -/uygulama klasörüne geçin ve birinci aşamadaki imajın /usr/src/uygulama klasörünün içeriğini buraya kopyalayın
 ### -Bu imajdan container yaratıldığı zaman "java uygulama" komutnu çalıştırması için talimat girin
+![alistirma3 12 1](https://user-images.githubusercontent.com/81867200/182512807-bc6da938-f216-4c3e-a6ba-12e316e964bb.png)
 
 ### 13: Bu Dockerfile.multi dosyasından dockerhub/kullaniciadiniz/alistirma:java tagli bir imaj yaratın
-
+docker image build -t berkeose/alistirma:java -f Dockerfile.multi .
 ### 14:Bu imajdan bir container yaratın ve java uygulamanızın çıkardığı mesajı görün
-
+docker run berkeose/alistirma:java
 ### 15:dockerhub/kullaniciadiniz/alistirma:kirmizi,dockerhub/kullaniciadiniz/alistirma:sari,dockerhub/kullaniciadiniz/alistirma:java imajlarını docker hub'a yollayın.
-
+docker push berkeose/alistirma:kirmizi
 ### 16:Docker hubdaki registry isiml imajdan lokal bir Docker Registry çalıştırın.
-
+docker run -d -p 5000:5000 --restart always --name registry registry
 ### 17::dockerhub/kullaniciadiniz/alistirma:kirmizi,dockerhub/kullaniciadiniz/alistirma:sari,dockerhub/kullaniciadiniz/alistirma:java imajlarını yeniden tagleyerek bu lokal registry'e gönderin ve ardından bu registry'i web arayüzünden kontrol edin.
-
+docker image tag berkeose/alistirma:kirmizi 127.0.0.1:5000/kirmizi1:latest
+docker push 127.0.0.1:5000/kirmizi1:latest
+![alistirma3 16s](https://user-images.githubusercontent.com/81867200/182514338-c8086547-2f81-44af-b0a5-5e89d4521cf2.png)
 
 
 
