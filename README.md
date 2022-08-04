@@ -389,6 +389,16 @@ docker push 127.0.0.1:5000/kirmizi1:latest
 ![alistirma3 16s](https://user-images.githubusercontent.com/81867200/182514338-c8086547-2f81-44af-b0a5-5e89d4521cf2.png)
 
 
+## DOCKER COMPOSE
+### Compose, çoklu docker uygulamalarını tanımlamak ve çalıştırmak için bir araçtır. Compose ile uygulamamızın hizmetlerini yapılandırmak için bir YAML dosyası kullanırız.Ardından,tek bir komutla,tüm hizmetleri yapılandırmamızdan oluşturur ve başlatırız.
+
+### YAML : İnsanların kolayca okuyup anlayabilmelerini sağlayan veri serizilasyon dilidir.Konfigürasyon dosyaları oluşturulurken YAML dili kullanılır.
+
+### Örnek YAML dosyası:
+![yamlör](https://user-images.githubusercontent.com/81867200/182647276-a9fc71b6-2c84-4b0a-8f30-cbd5361568cf.png)
+
+
+
 
 
 
