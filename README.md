@@ -398,7 +398,22 @@ docker push 127.0.0.1:5000/kirmizi1:latest
 ![yamlör](https://user-images.githubusercontent.com/81867200/182647276-a9fc71b6-2c84-4b0a-8f30-cbd5361568cf.png)
 
 
+örn:
+![image](https://user-images.githubusercontent.com/81867200/183105081-05cd7b30-1d05-44c9-8703-778d156a492a.png)
 
+
+## DOCKER SWARM
+### Docker Engine'e entegre bir container orchestration çözümüdür.Bir docker ana bilgisayar havuzunu tek bir sanal ana bilgisayara dönüştürür.
+
+### DOCKER SWARM COMPONENTLERİ:
+### SWARM MANAGER: Adı üstünde swarm küme(cluster) üzerindeki işlerin yönetilmesini gerçekleştiren node grubudur. Servislerin yönetilmesi, ölçekleme, sürekli monitör ederek cluster ortamını(cluster state) istenen seviyede tutma(desired state), servisler arası yük dağılımı(load balancing) gibi görevleri vardır.
+
+### SWARM MANAGER'ın kuralları:
+
+
+### WORKER NODE:İşlerin yürüdüğü yani containerlarımızın çalıştığı node’lara verilen isimdir. Bir swarm cluster’da hiç worker node yokken de cluster tüm işlevini yerine getirebilir fakat sadece worker node olan bir cluster olamaz. Bir worker node sonradan aşağıdaki kod ile manager yapılabilir.
+
+![dockerswarm](https://user-images.githubusercontent.com/81867200/183111373-9b8d8d78-985d-41ca-8380-a363c476e074.png)
 
 
 
