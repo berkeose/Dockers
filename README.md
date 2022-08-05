@@ -405,6 +405,9 @@ docker push 127.0.0.1:5000/kirmizi1:latest
 
 
 
+
+
+
     
 
 
