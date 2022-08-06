@@ -408,15 +408,26 @@ docker push 127.0.0.1:5000/kirmizi1:latest
 ### DOCKER SWARM COMPONENTLERİ:
 ### SWARM MANAGER: Adı üstünde swarm küme(cluster) üzerindeki işlerin yönetilmesini gerçekleştiren node grubudur. Servislerin yönetilmesi, ölçekleme, sürekli monitör ederek cluster ortamını(cluster state) istenen seviyede tutma(desired state), servisler arası yük dağılımı(load balancing) gibi görevleri vardır.
 
-### SWARM MANAGER'ın kuralları:
-
 
 ### WORKER NODE:İşlerin yürüdüğü yani containerlarımızın çalıştığı node’lara verilen isimdir. Bir swarm cluster’da hiç worker node yokken de cluster tüm işlevini yerine getirebilir fakat sadece worker node olan bir cluster olamaz. Bir worker node sonradan aşağıdaki kod ile manager yapılabilir.
+### SWARM MANAGER'ın kuralları:
 
 ![dockerswarm](https://user-images.githubusercontent.com/81867200/183111373-9b8d8d78-985d-41ca-8380-a363c476e074.png)
 
 
+## DOCKER SERVİCE:
+### Docker Swarm Cluıster'da oluşturabilceğimiz en temel obje servislerdir
 
+## DOCKER OVERLAY:
+### Servisleri aynı networkdeymiş gibi çalıştırmaya imkan sağlar.
+### //docker network create overlay
+
+## DOCKER SECRET:
+### Containerlarda plain text olarak tutmamızın güvenik zaafiyeti yaratabileceği kullanıcı adı, şifre gibi verileri secret objeleri şeklinde encrypted olarak transfer edebiliriz
+### // docker secret create sevret_name ./dosyayolu
+
+### DOCKER STACK:
+### Docker stack aslında docker swarm'ın production tarafında daha yönetilebilir bir şekilde işlemesi için ,bir konfigürasyon dosyası üzerinden kurgulandığı ve yönetildiği bir yapıdır. Ya da başka bir tanımlama ile docker compose dosyası ile docker swarmın tek elden yönetilmesini sağlamaktır
 
 
 
