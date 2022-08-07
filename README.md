@@ -407,6 +407,8 @@ docker push 127.0.0.1:5000/kirmizi1:latest
 
 ### DOCKER SWARM COMPONENTLERİ:
 ### SWARM MANAGER: Adı üstünde swarm küme(cluster) üzerindeki işlerin yönetilmesini gerçekleştiren node grubudur. Servislerin yönetilmesi, ölçekleme, sürekli monitör ederek cluster ortamını(cluster state) istenen seviyede tutma(desired state), servisler arası yük dağılımı(load balancing) gibi görevleri vardır.
+### // docker swarm init --advertise-addr -IP-     olan node'u manager olarak atar.
+### // manager atandıktan sonra worker nodelar oluşturmak için bir token kodu verir.
 
 
 ### WORKER NODE:İşlerin yürüdüğü yani containerlarımızın çalıştığı node’lara verilen isimdir. Bir swarm cluster’da hiç worker node yokken de cluster tüm işlevini yerine getirebilir fakat sadece worker node olan bir cluster olamaz. Bir worker node sonradan aşağıdaki kod ile manager yapılabilir.
@@ -417,7 +419,9 @@ docker push 127.0.0.1:5000/kirmizi1:latest
 
 ## DOCKER SERVİCE:
 ### Docker Swarm Cluıster'da oluşturabilceğimiz en temel obje servislerdir
-
+### global olarak service yaratıldığında her node'da o servisin bir replikasi çalışmak zorundadır.
+### Oluşturdğumuz servisi daha sonra docker service update komutuyla güncelleyebilir ve yeni özellikler ekleyebilir mevcut parametleri değiştirebiliriz.
+### docker service rollback komutuyla service'i update'den önceki haline geri getirebiliriz.
 ## DOCKER OVERLAY:
 ### Servisleri aynı networkdeymiş gibi çalıştırmaya imkan sağlar.
 ### //docker network create overlay
